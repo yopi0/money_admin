@@ -39,3 +39,7 @@ export const addForm = (content, amount, uid, inorex) => {
     })
   }
 }
+
+export const incomeDelete = async(id) => {
+  await db.collection("income").doc(id).delete();
+}

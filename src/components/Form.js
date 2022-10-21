@@ -63,7 +63,7 @@ const Form = () => {
   return(
     <div>
       {formRender()}
-      <List incomeList={incomeList}/>
+      <List incomeList={incomeList} fetch={fetch}/>
     </div>
   )
 };
