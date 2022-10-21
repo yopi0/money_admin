@@ -21,12 +21,17 @@ const Form = () => {
     fetch()
   }, [currentUser])
 
-  // 収入のリストを取得
+  // 収支のリストを取得
   const fetch = async() => {
     if( dig(currentUser, 'currentUser', 'uid') ){
-      const lists = await Api.getList(currentUser.currentUser.uid);
-      await setIncomeList(lists);
+      // income
+      const incLists = await Api.getIncomeList(currentUser.currentUser.uid);
+      await setIncomeList(incLists);
       console.log(incomeList);
+      // expense
+      const expLists = await Api.getExpenseList(currentUser.currentUser.uid);
+      await setExpenseList(expLists);
+      console.log(expenseList);
     }
   }
   
@@ -63,7 +68,7 @@ const Form = () => {
   return(
     <div>
       {formRender()}
-      <List incomeList={incomeList} fetch={fetch}/>
+      <List incomeList={incomeList} expenseList={expenseList} fetch={fetch}/>
     </div>
   )
 };
