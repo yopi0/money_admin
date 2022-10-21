@@ -10,7 +10,7 @@ const Header = () => {
   //ログインによる表示内容分岐
   const buttonRender = () => {
     let buttonDom
-    if( dig(currenUser, 'currentUser') ){
+    if( dig(currenUser, 'currentUser', 'uid') ){
       // ユーザー名の取得
       let name = dig(currenUser, 'currentUser', 'bc', 'displayName')
       buttonDom = (
