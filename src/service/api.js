@@ -1,9 +1,24 @@
 import firebase from "firebase"
+import { startTransition } from "react";
 import {db} from "./firebase"
 
-export const getIncomeList = async(uid) => {
+const createStartBorder = (date) => {
+  const newStartDate = firebase.firestore.Timestamp.fromDate(new Date(date.getFullYear(), date.getMonth(), 1));
+  console.log("start");
+  console.log(newStartDate);
+  return newStartDate;
+  
+}
+const createEndBorder = (date) => {
+  const newEndDate = firebase.firestore.Timestamp.fromDate(new Date(date.getFullYear(), date.getMonth()+1, 0));
+  console.log("end");
+  console.log(newEndDate);
+  return newEndDate;
+}
+
+export const getIncomeList = async(uid, formTime) => {
   const incomeList = await db.collection("income")
-  .orderBy("createdAt", "desc").where("uid", "==", uid);
+  .orderBy("createdAt").startAt(createStartBorder(formTime)).endAt(createEndBorder(formTime)).where("uid", "==", uid);
 
   return incomeList.get().then((snapShot) => {
     let lists = [];
@@ -14,13 +29,15 @@ export const getIncomeList = async(uid) => {
         amount: doc.data().amount
       });
     });
+    console.log("収入");
+    console.log(lists);
     return lists;
   })
 }
 
-export const getExpenseList = async(uid) => {
+export const getExpenseList = async(uid, formTime) => {
   const expenseLists = await db.collection("expense")
-  .orderBy("createdAt", "desc").where("uid", "==", uid);
+  .orderBy("createdAt").startAt(createStartBorder(formTime)).endAt(createEndBorder(formTime)).where("uid", "==", uid);
 
   return expenseLists.get().then((snapShot) => {
     let lists = [];
@@ -31,6 +48,8 @@ export const getExpenseList = async(uid) => {
         amount: doc.data().amount
       });
     });
+    console.log("支出");
+    console.log(lists);
     return lists;
   })
 }

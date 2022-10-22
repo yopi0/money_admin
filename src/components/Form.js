@@ -4,8 +4,9 @@ import { signInWithGoogle } from "../service/firebase";
 import dig from "object-dig"
 import AuthProvider, {AuthContext} from "../provider/AuthProvider"
 import List from "./List";
+import Datetime from "./Datetime"
 
-const Form = () => {
+const Form = (props) => {
   const currentUser = useContext(AuthContext);
   // form内で使用する値
   const [inputContent, setInputContent] = useState("");
@@ -16,20 +17,30 @@ const Form = () => {
   const [incomeList, setIncomeList] = useState([]);
   const [expenseList, setExpenseList] = useState([]);
 
+  // 選択されている月情報
+  const formTime = props.time;
+  const formTimeMonth = props.time.getMonth();
+  const formTimeYear = props.time.getFullYear();
+  const today = new Date();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
+  console.log("フォーム");
+  console.log(formTimeMonth);
+
   // Listの更新
   useEffect(() => {
     fetch()
-  }, [currentUser])
+  }, [currentUser, formTime])
 
   // 収支のリストを取得
   const fetch = async() => {
     if( dig(currentUser, 'currentUser', 'uid') ){
       // income
-      const incLists = await Api.getIncomeList(currentUser.currentUser.uid);
+      const incLists = await Api.getIncomeList(currentUser.currentUser.uid, formTime);
       await setIncomeList(incLists);
       console.log(incomeList);
       // expense
-      const expLists = await Api.getExpenseList(currentUser.currentUser.uid);
+      const expLists = await Api.getExpenseList(currentUser.currentUser.uid, formTime);
       await setExpenseList(expLists);
       console.log(expenseList);
     }
@@ -40,17 +51,22 @@ const Form = () => {
     let FormDom
     // ログイン=>入力フォーム
     if( dig(currentUser, 'currentUser', 'uid') ){
-      FormDom = 
-      <form>
-        <select name="inorex" value={inputInOrEx} onChange={(event) => setInputInOrEx(event.currentTarget.value)}>
-          <option value="" >select type</option>
-          <option value="in" >income</option>
-          <option value="ex" >expense</option>
-        </select>
-        <input type="text"  placeholder="項目" value={inputContent} onChange={(event) => setInputContent(event.currentTarget.value)}/>
-        <input type="number"  placeholder="0000" value={inputAmount} step="1000" min="0"  onChange={(event) => setInputAmount(event.currentTarget.value)}/>
-        <button type="button" onClick={() => post()}>追加</button>
-      </form>
+      // 現在の月だけフォーム表示
+      if(formTimeMonth === todayMonth && formTimeYear === todayYear ){
+        FormDom = 
+        <form>
+          <select name="inorex" value={inputInOrEx} onChange={(event) => setInputInOrEx(event.currentTarget.value)}>
+            <option value="" >select type</option>
+            <option value="in" >income</option>
+            <option value="ex" >expense</option>
+          </select>
+          <input type="text"  placeholder="項目" value={inputContent} onChange={(event) => setInputContent(event.currentTarget.value)}/>
+          <input type="number"  placeholder="0000" value={inputAmount} step="1000" min="0"  onChange={(event) => setInputAmount(event.currentTarget.value)}/>
+          <button type="button" onClick={() => post()}>追加</button>
+        </form>
+      }else{
+        <form></form>
+      }
     }else{
       FormDom = <button onClick={signInWithGoogle}>ログイン</button>
     }
@@ -64,6 +80,8 @@ const Form = () => {
     await setInputInOrEx("");
     fetch();
   }
+
+
 
   return(
     <div>
