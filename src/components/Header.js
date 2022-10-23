@@ -8,8 +8,12 @@ import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Pig from '../images/pig.png';
 
 const useStyles = makeStyles(() => ({
+  image: {
+    width:'70px',
+  },
   toolbar: {
     justifyContent: 'space-between'
   },
@@ -63,7 +67,7 @@ const Header = () => {
     <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          PiggyWallet
+          <img className={classes.image} src={Pig}  alt="アイコン" />
         </Typography>
         <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }}>
           {nameRender()}'s wallet
