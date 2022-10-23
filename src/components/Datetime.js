@@ -11,20 +11,27 @@ import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import LeftIcon from '@material-ui/icons/KeyboardArrowLeftTwoTone';
+import RightIcon from '@material-ui/icons/KeyboardArrowRightTwoTone'
 
 const useStyles = makeStyles(() => ({
   contens: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: "#f1bacd",
+    color: "white",
   },
   item: {
     display: 'inline-block',
   },
   button: {
-    // color: 'red',
-    margin: 12,
+    color: 'white',
+    backgroundColor: "#471b7a",
+    margin: 24
   },
   nextButton: {
+    color: "white",
+    backgroundColor: "#471b7a",
     margin: 24,
   },
 }));
@@ -56,14 +63,14 @@ const Datetime = () => {
   return(
     <div>
       <div className={classes.contens}>
-        <div className={`${classes.item} ${classes.button}`}>
-          <Button className={classes.button} onClick={() => getPreviousMonth()}>Prev</Button>
+        <div className={classes.item}>
+          <Button className={classes.button} variant="outlined" startIcon={<LeftIcon/>} onClick={() => getPreviousMonth()}>Prev</Button>
         </div>
         <div className={classes.item}>
           <h2>{year}/{month+1}</h2>
         </div>
         <div className={classes.item}>
-          <Button className={classes.nextButton} onClick={() => getNextMonth()}>Next</Button>
+          <Button className={classes.nextButton} variant="outlined" endIcon={<RightIcon/>} onClick={() => getNextMonth()}>Next</Button>
         </div>
       </div>
       <Form time={time}/>
