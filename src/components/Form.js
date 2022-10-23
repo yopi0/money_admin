@@ -13,9 +13,33 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles(() => ({
-  
+  form: {
+    marginTop: '5%',
+    width: '25%',
+    display: 'flex',
+  },
+  contents: {
+    justifyContent: 'space-between',
+    display: 'flex',
+  },
+  select: {
+    margin:'5% 5%',
+    width: '3rem',
+    fontSize: '0.6rem',
+  },
+  input: {
+    margin:'5% 5%',
+    width: '8rem',
+  },
+  button: {
+    margin:'5% 5%',
+  },
 }));
 
 const Form = (props) => {
@@ -117,16 +141,25 @@ const Form = (props) => {
       // 現在の月だけフォーム表示
       if(formTimeMonth === todayMonth && formTimeYear === todayYear ){
         FormDom = 
-        <form>
-          <select name="inorex" value={inputInOrEx} onChange={(event) => setInputInOrEx(event.currentTarget.value)}>
-            <option value="" >select type</option>
-            <option value="in" >income</option>
-            <option value="ex" >expense</option>
-          </select>
-          <input type="text"  placeholder="項目" value={inputContent} onChange={(event) => setInputContent(event.currentTarget.value)}/>
-          <input type="number"  placeholder="0000" value={inputAmount} step="1000" min="0"  onChange={(event) => setInputAmount(event.currentTarget.value)}/>
-          <button type="button" onClick={() => post()}>追加</button>
-        </form>
+        <div className={classes.contents}>
+          <div>
+          </div>
+          <div>
+            <form className={classes.form}>
+              <select className={classes.select} name="inorex" value={inputInOrEx} onChange={(event) => setInputInOrEx(event.currentTarget.value)}>
+                <option value="" >??</option>
+                <option value="in" >in</option>
+                <option value="ex" >out</option>
+              </select>
+              <input className={classes.input} type="text"  placeholder="Input Content" value={inputContent} onChange={(event) => setInputContent(event.currentTarget.value)}/>
+              <input className={classes.input} type="number"  placeholder="0000" value={inputAmount} step="1000" min="0"  onChange={(event) => setInputAmount(event.currentTarget.value)}/>
+              <button className={classes.button} type="button" onClick={() => post()}>Add</button>
+            </form>
+          </div>
+          <div>
+          </div>
+        </div>
+        
       }else{
         <form></form>
       }

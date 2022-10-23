@@ -36,13 +36,13 @@ const useStyles = makeStyles(() => ({
     marginLeft: '15%',
     marginBottom: '3%',
     backgroundColor: 'green',
-    padding: '8px 8px',
+    padding: '8px 20px',
   },
   expense: {
     marginRight: '15%',
     marginBottom: '3%',
     backgroundColor: 'red',
-    padding: '8px 8px',
+    padding: '8px 20px',
   }
 }));
 
@@ -64,10 +64,10 @@ const Info = (props) => {
         </div>
         <div className={classes.contens}>
           <div className={`${classes.item} ${classes.income}`}>
-            income   {`${monthIn} 円`}
+            +   {`${monthIn} 円`}
           </div>
           <div className={`${classes.item} ${classes.expense}`}>
-            expense   {`${monthExp} 円`}
+            -   {`${monthExp} 円`}
           </div>
         </div>
       </div>
