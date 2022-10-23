@@ -5,6 +5,7 @@ import dig from "object-dig"
 import AuthProvider, {AuthContext} from "../provider/AuthProvider"
 import List from "./List";
 import Datetime from "./Datetime"
+import Info from "./Info";
 
 const Form = (props) => {
   const currentUser = useContext(AuthContext);
@@ -27,6 +28,10 @@ const Form = (props) => {
   console.log("フォーム");
   console.log(formTimeMonth);
 
+  // Infomation用の情報
+  const [incomeInfo, setIncomInfo] = useState(0);
+  const [expenseInfo, setExpenseInfo] = useState(0);
+
   // Listの更新
   useEffect(() => {
     fetch()
@@ -38,10 +43,25 @@ const Form = (props) => {
       // income
       const incLists = await Api.getIncomeList(currentUser.currentUser.uid, formTime);
       await setIncomeList(incLists);
+      console.log("fetch incom");
+      console.log(incLists);
       console.log(incomeList);
+      let amountSum = 0;
+      if (incLists.length > 0){
+        const amountList = incLists.map((obj) => obj.amount);
+        const amountIntList = amountList.map((str) => parseInt(str, 10));
+        amountSum = amountIntList.reduce((sum,element) => {
+          return sum +element;
+        });
+      };
+
+      setIncomInfo(amountSum);
+      console.log(amountSum);
+      console.log(incomeInfo);
       // expense
       const expLists = await Api.getExpenseList(currentUser.currentUser.uid, formTime);
       await setExpenseList(expLists);
+      console.log("fetch Expenses");
       console.log(expenseList);
     }
   }
@@ -78,13 +98,14 @@ const Form = (props) => {
     await setInputContent("");
     await setInputAmount(0);
     await setInputInOrEx("");
-    fetch();
+    await fetch();
   }
 
 
 
   return(
     <div>
+      <Info incomeInfo={incomeInfo}/>
       {formRender()}
       <List incomeList={incomeList} expenseList={expenseList} fetch={fetch}/>
     </div>

@@ -16,6 +16,7 @@ const createEndBorder = (date) => {
   return newEndDate;
 }
 
+// 指定されている月の収入リストを表示
 export const getIncomeList = async(uid, formTime) => {
   const incomeList = await db.collection("income")
   .orderBy("createdAt").startAt(createStartBorder(formTime)).endAt(createEndBorder(formTime)).where("uid", "==", uid);
@@ -35,6 +36,7 @@ export const getIncomeList = async(uid, formTime) => {
   })
 }
 
+// 指定されている月の支出リストを表示
 export const getExpenseList = async(uid, formTime) => {
   const expenseLists = await db.collection("expense")
   .orderBy("createdAt").startAt(createStartBorder(formTime)).endAt(createEndBorder(formTime)).where("uid", "==", uid);
@@ -54,16 +56,16 @@ export const getExpenseList = async(uid, formTime) => {
   })
 }
 
-export const addForm = (content, amount, uid, inorex) => {
+export const addForm = async(content, amount, uid, inorex) => {
   if (inorex === "in"){
-    db.collection("income").add({
+    await db.collection("income").add({
       content: content,
       amount: amount,
       uid: uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
   }else if (inorex === "ex"){
-    db.collection("expense").add({
+    await db.collection("expense").add({
       content: content,
       amount: amount,
       uid: uid,
