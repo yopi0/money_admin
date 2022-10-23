@@ -56,6 +56,45 @@ export const getExpenseList = async(uid, formTime) => {
   })
 }
 
+// 合算した収入を取得
+export const getIncomeAllInfo = async(uid) => {
+  const incomeAllInfo = await db.collection("income")
+  .orderBy("createdAt").where("uid", "==", uid);
+
+  return incomeAllInfo.get().then((snapShot) => {
+    let lists = [];
+    snapShot.forEach((doc) => {
+      lists.push({
+        id: doc.id,
+        content: doc.data().content,
+        amount: doc.data().amount
+      });
+    });
+    return lists;
+  })
+}
+
+// 合算した支出を取得
+export const getExpenseAllInfo = async(uid) => {
+  const expenseAllInfo = await db.collection("expense")
+  .orderBy("createdAt").where("uid", "==", uid);
+
+  return expenseAllInfo.get().then((snapShot) => {
+    let lists = [];
+    snapShot.forEach((doc) => {
+      lists.push({
+        id: doc.id,
+        content: doc.data().content,
+        amount: doc.data().amount
+      });
+    });
+    return lists;
+  })
+}
+
+
+
+// 
 export const addForm = async(content, amount, uid, inorex) => {
   if (inorex === "in"){
     await db.collection("income").add({

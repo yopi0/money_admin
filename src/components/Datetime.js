@@ -25,13 +25,13 @@ const Datetime = () => {
     setTime(new Date(year,month,day));
   }
 
-
+  const year = time.getFullYear();
   const month = time.getMonth();
 
   return(
     <div>
       <button onClick={() => getPreviousMonth()}>前月</button>
-      <h2>yes{month+1}</h2>
+      <h2>{year}/{month+1}</h2>
       <button onClick={() => getNextMonth()}>翌月</button>
       <Form time={time}/>
     </div>

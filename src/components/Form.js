@@ -31,6 +31,8 @@ const Form = (props) => {
   // Infomation用の情報
   const [incomeInfo, setIncomInfo] = useState(0);
   const [expenseInfo, setExpenseInfo] = useState(0);
+  const [incomeAllInfo, setIncomeAllInfo] = useState(0);
+  const [expenseAllInfo, setExpenseAllInfo] = useState(0);
 
   // Listの更新
   useEffect(() => {
@@ -54,15 +56,42 @@ const Form = (props) => {
           return sum +element;
         });
       };
-
       setIncomInfo(amountSum);
-      console.log(amountSum);
-      console.log(incomeInfo);
+      const incAll = await Api.getIncomeAllInfo(currentUser.currentUser.uid);
+      let amountAllSum = 0;
+      if (incAll.length > 0){
+        const amountAll = incAll.map((obj) => obj.amount);
+        const amountIntAll = amountAll.map((str) => parseInt(str, 10));
+        amountAllSum = amountIntAll.reduce((sum,element) => {
+          return sum +element;
+        });
+      };
+      setIncomeAllInfo(amountAllSum);
+
       // expense
       const expLists = await Api.getExpenseList(currentUser.currentUser.uid, formTime);
       await setExpenseList(expLists);
       console.log("fetch Expenses");
       console.log(expenseList);
+      let amountSumForExp = 0;
+      if (expLists.length > 0){
+        const amountList = expLists.map((obj) => obj.amount);
+        const amountIntList = amountList.map((str) => parseInt(str, 10));
+        amountSumForExp = amountIntList.reduce((sum,element) => {
+          return sum +element;
+        });
+      };
+      setExpenseInfo(amountSumForExp);
+      const expAll = await Api.getExpenseAllInfo(currentUser.currentUser.uid);
+      let amountAllSumForExp = 0;
+      if (expAll.length > 0){
+        const amountAll = expAll.map((obj) => obj.amount);
+        const amountIntAll = amountAll.map((str) => parseInt(str, 10));
+        amountAllSumForExp = amountIntAll.reduce((sum,element) => {
+          return sum +element;
+        });
+      };
+      setExpenseAllInfo(amountAllSumForExp);
     }
   }
   
@@ -105,7 +134,7 @@ const Form = (props) => {
 
   return(
     <div>
-      <Info incomeInfo={incomeInfo}/>
+      <Info incomeInfo={incomeInfo} expenseInfo={expenseInfo} incomeAllInfo={incomeAllInfo} expenseAllInfo={expenseAllInfo}/>
       {formRender()}
       <List incomeList={incomeList} expenseList={expenseList} fetch={fetch}/>
     </div>
