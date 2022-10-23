@@ -6,8 +6,22 @@ import AuthProvider, {AuthContext} from "../provider/AuthProvider"
 import List from "./List";
 import Datetime from "./Datetime"
 import Info from "./Info";
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper'
+
+const useStyles = makeStyles(() => ({
+  
+}));
 
 const Form = (props) => {
+
+  const classes = useStyles();
+
   const currentUser = useContext(AuthContext);
   // form内で使用する値
   const [inputContent, setInputContent] = useState("");
