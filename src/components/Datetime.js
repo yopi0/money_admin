@@ -5,8 +5,33 @@ import * as Api from "../service/api";
 import { signInWithGoogle } from "../service/firebase";
 import dig from "object-dig"
 import AuthProvider, {AuthContext} from "../provider/AuthProvider"
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles(() => ({
+  contens: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  item: {
+    display: 'inline-block',
+  },
+  button: {
+    // color: 'red',
+    margin: 12,
+  },
+  nextButton: {
+    margin: 24,
+  },
+}));
 
 const Datetime = () => {
+
+  const classes = useStyles();
 
   const [time, setTime] = useState(new Date());
 
@@ -30,9 +55,17 @@ const Datetime = () => {
 
   return(
     <div>
-      <button onClick={() => getPreviousMonth()}>前月</button>
-      <h2>{year}/{month+1}</h2>
-      <button onClick={() => getNextMonth()}>翌月</button>
+      <div className={classes.contens}>
+        <div className={`${classes.item} ${classes.button}`}>
+          <Button className={classes.button} onClick={() => getPreviousMonth()}>Prev</Button>
+        </div>
+        <div className={classes.item}>
+          <h2>{year}/{month+1}</h2>
+        </div>
+        <div className={classes.item}>
+          <Button className={classes.nextButton} onClick={() => getNextMonth()}>Next</Button>
+        </div>
+      </div>
       <Form time={time}/>
     </div>
   )
