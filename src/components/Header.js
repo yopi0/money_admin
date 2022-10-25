@@ -38,7 +38,7 @@ const Header = () => {
     if( dig(currenUser, 'currentUser', 'uid') ){
       buttonDom = (
       <>
-      <Button className={classes.button} onClick={logOut}>Log-out
+      <Button className={classes.button} onClick={logOut}><h6>Log-out</h6>
       </Button>
       </>
       )
@@ -53,10 +53,10 @@ const Header = () => {
     if( dig(currenUser, 'currentUser', 'uid') ){
       let name = dig(currenUser, 'currentUser', 'bc', 'displayName');
       nameDom = (
-        <>{name}'s wallet</>
+        <h6>{name}'s wallet</h6>
       )
     }else{
-      nameDom = <p>Please Log In</p>
+      nameDom = <h6>Please Log In</h6>
     }
     return nameDom;
   }
@@ -67,7 +67,7 @@ const Header = () => {
     <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <img className={classes.image} src={Pig}  alt="アイコン" />Piglet
+          <img className={classes.image} src={Pig}  alt="アイコン" />
         </Typography>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {nameRender()}
