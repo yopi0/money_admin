@@ -4,16 +4,11 @@ import { signInWithGoogle } from "../service/firebase";
 import dig from "object-dig"
 import AuthProvider, {AuthContext} from "../provider/AuthProvider"
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper'
+
 
 const useStyles = makeStyles(() => ({
   back: {
-    backgroundColor: "#f1bacd",
+    backgroundColor: "#f5bab8b3",
     color: "white",
   },
   contens: {
@@ -25,23 +20,23 @@ const useStyles = makeStyles(() => ({
   },
   saving:{
     textAlign: 'center',
-    marginBottom: '2%',
+    marginBottom: '5%',
     marginLeft: '30%',
     marginRight: '30%',
     padding: '8px 8px',
     whiteSpace: 'nowrap',
-    backgroundColor: 'grey',
+    backgroundColor: '#37ddbb80',
   },
   income: {
     marginLeft: '15%',
     marginBottom: '3%',
-    backgroundColor: 'green',
+    backgroundColor: '#046e04b0',
     padding: '8px 20px',
   },
   expense: {
     marginRight: '15%',
     marginBottom: '3%',
-    backgroundColor: 'red',
+    backgroundColor: '#af0303d1',
     padding: '8px 20px',
   }
 }));

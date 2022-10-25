@@ -1,24 +1,16 @@
 import React, {useState, useEffect, useContext} from "react";
-import List from "./List";
 import Form from "./Form";
-import * as Api from "../service/api";
-import { signInWithGoogle } from "../service/firebase";
-import dig from "object-dig"
 import AuthProvider, {AuthContext} from "../provider/AuthProvider"
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LeftIcon from '@material-ui/icons/KeyboardArrowLeftTwoTone';
-import RightIcon from '@material-ui/icons/KeyboardArrowRightTwoTone'
+import RightIcon from '@material-ui/icons/KeyboardArrowRightTwoTone';
 
 const useStyles = makeStyles(() => ({
   contens: {
     display: 'flex',
     justifyContent: 'space-between',
-    backgroundColor: "#f1bacd",
+    backgroundColor: "#f5bab8b3",
     color: "white",
   },
   item: {
@@ -26,12 +18,12 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     color: 'white',
-    backgroundColor: "#471b7a",
+    backgroundColor: "#37ddbb80",
     margin: 24
   },
   nextButton: {
     color: "white",
-    backgroundColor: "#471b7a",
+    backgroundColor: "#37ddbb80",
     margin: 24,
   },
 }));

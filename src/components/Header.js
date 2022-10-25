@@ -15,13 +15,13 @@ const useStyles = makeStyles(() => ({
     width:'70px',
   },
   toolbar: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   button: {
     color: '#FFF',
   },
   appbar: {
-    backgroundColor: "#471b7a",
+    backgroundColor: "#37ddbb80",
   }
 }));
 
@@ -53,10 +53,10 @@ const Header = () => {
     if( dig(currenUser, 'currentUser', 'uid') ){
       let name = dig(currenUser, 'currentUser', 'bc', 'displayName');
       nameDom = (
-        <>{name}</>
+        <>{name}'s wallet</>
       )
     }else{
-      nameDom = <p></p>
+      nameDom = <p>Please Log In</p>
     }
     return nameDom;
   }
@@ -67,10 +67,10 @@ const Header = () => {
     <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <img className={classes.image} src={Pig}  alt="アイコン" /><span>Piggy Wallet</span>
+          <img className={classes.image} src={Pig}  alt="アイコン" />Piglet
         </Typography>
-        <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }}>
-          {nameRender()}'s wallet
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {nameRender()}
         </Typography>
         <Button color="inherit">{buttonRender()}</Button>
       </Toolbar>

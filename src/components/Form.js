@@ -7,16 +7,15 @@ import List from "./List";
 import Datetime from "./Datetime"
 import Info from "./Info";
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper'
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import TextField  from "@material-ui/core/TextField";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/AddCircle"
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -32,13 +31,41 @@ const useStyles = makeStyles(() => ({
     margin:'5% 5%',
     width: '3rem',
     fontSize: '0.6rem',
+    border: "none",
+    outline: "none",
+    borderBottom: "solid 1px #f5bab8b3",
+    '&:focus': {
+      borderBottom: "solid 3px #f5bab8b3",
+    },
   },
   input: {
     margin:'5% 5%',
     width: '8rem',
+    border: "none",
+    outline: "none",
+    borderBottom: "solid 1px #f5bab8b3",
+    '&:focus': {
+      borderBottom: "solid 3px #f5bab8b3",
+    },
+  },
+  option:{
+    fontSize:'10px',
+    cursor: 'pointer',
+    backgroundColor: '#f5bab8b3',
+    border: "none",
+    outline: "none",
+    '&:focus': {
+      backgroundColor: "#f5bab8b3",  
+      border: "none",
+      outline: "none",
+    },
+
   },
   button: {
     margin:'5% 5%',
+  },
+  list:{
+    backgroundColor: '#fbf9f9',
   },
 }));
 
@@ -147,13 +174,13 @@ const Form = (props) => {
           <div>
             <form className={classes.form}>
               <select className={classes.select} name="inorex" value={inputInOrEx} onChange={(event) => setInputInOrEx(event.currentTarget.value)}>
-                <option value="" >??</option>
-                <option value="in" >in</option>
-                <option value="ex" >out</option>
+                <option className={classes.option} value="" ></option>
+                <option className={classes.option} value="in" >+</option>
+                <option className={classes.option} value="ex" >-</option>
               </select>
               <input className={classes.input} type="text"  placeholder="Input Content" value={inputContent} onChange={(event) => setInputContent(event.currentTarget.value)}/>
-              <input className={classes.input} type="number"  placeholder="0000" value={inputAmount} step="1000" min="0"  onChange={(event) => setInputAmount(event.currentTarget.value)}/>
-              <button className={classes.button} type="button" onClick={() => post()}>Add</button>
+              <input className={classes.input} type="number"  placeholder="¥" value={inputAmount} step="100" min="0"  onChange={(event) => setInputAmount(event.currentTarget.value)}/>
+              <IconButton edge="end" aria-label="delete" className={classes.button} type="button" disabled={inputContent.length >0 ? false : true} onClick={() => post()}><AddIcon /></IconButton>
             </form>
           </div>
           <div>
@@ -164,7 +191,7 @@ const Form = (props) => {
         <form></form>
       }
     }else{
-      FormDom = <button onClick={signInWithGoogle}>ログイン</button>
+      FormDom = <div></div>
     }
     return FormDom
   }
@@ -183,7 +210,7 @@ const Form = (props) => {
     <div>
       <Info incomeInfo={incomeInfo} expenseInfo={expenseInfo} incomeAllInfo={incomeAllInfo} expenseAllInfo={expenseAllInfo}/>
       {formRender()}
-      <List incomeList={incomeList} expenseList={expenseList} fetch={fetch}/>
+      <List className={classes.list} incomeList={incomeList} expenseList={expenseList} fetch={fetch}/>
     </div>
   )
 };
