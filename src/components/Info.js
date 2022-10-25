@@ -28,14 +28,14 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#37ddbb80',
   },
   income: {
-    marginLeft: '15%',
-    marginBottom: '3%',
+    marginLeft: '17%',
+    marginBottom: '5%',
     backgroundColor: '#046e04b0',
     padding: '8px 20px',
   },
   expense: {
-    marginRight: '15%',
-    marginBottom: '3%',
+    marginRight: '17%',
+    marginBottom: '5%',
     backgroundColor: '#af0303d1',
     padding: '8px 20px',
   }
